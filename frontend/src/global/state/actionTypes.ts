@@ -1,0 +1,7 @@
+const SET_USER: 'SET_USER' = 'SET_USER';
+const SET_COURSES: 'SET_COURSES' = 'SET_COURSES';
+
+export {
+  SET_USER,
+  SET_COURSES
+}

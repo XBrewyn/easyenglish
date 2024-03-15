@@ -1,0 +1,35 @@
+@mixin hero-section-styles($background-image, $color-white: #ffffff)
+  background-image: url(#{$background-image})
+  background-position: center center
+  background-repeat: no-repeat
+  background-size: cover
+  color: $color-white
+  display: flex
+  position: relative
+  background-attachment: fixed
+
+  @include mobile
+    height: auto
+
+  &:before
+    background: linear-gradient(90deg, #0a1d71 20%, rgba(9,132,227,0.05926120448179273) 100%)
+    content: ''
+    height: 100%
+    position: absolute
+    top: 0
+    width: 100%
+
+@mixin button($font-size: auto)
+  background-color: #f23000
+  color: $color__white
+  font-size: $font-size
+  padding: 20px
+  position: relative
+  text-decoration: none
+  top: 20px
+  transition: background-color 0.2s ease
+  font-size: 30px
+
+@mixin mobile
+  @media only screen and (max-width: 767px)
+    @content

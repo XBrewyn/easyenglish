@@ -1,0 +1,82 @@
+.aside
+  background: #3F51B5
+  border: solid 1px #f1f1f1
+  color: white
+  height: 100vh
+  overflow: hidden
+  width: 0
+
+.title
+  margin-left: 20px
+
+.hide
+  animation: slideInAside 0.5s forwards
+
+.display
+  animation: slideOutAside 0.5s forwards
+
+.button__container
+  display: flex
+  justify-content: flex-end
+
+.button
+  background-color: #3f51b5
+  border-bottom-right-radius: 5px
+  border-top-right-radius: 5px
+  cursor: pointer
+  margin: 0 -30px
+  padding: 7px
+  position: absolute
+
+  svg
+    margin-top: 10px
+
+.words
+  overflow: hidden
+  height: 0
+
+.lession
+  border-bottom: solid 1px #f1f1f1
+  cursor: pointer
+  list-style: none
+
+  &:first-child
+    border-top: solid 1px #f1f1f1
+
+.lessions
+  margin: 0
+  padding: 0
+
+.lession__title
+  display: block
+  padding: 10px 10px
+  list-style: none
+
+.word
+  list-style: none
+  cursor: pointer
+  padding: 10px
+  transition: background-color 0.3s ease
+
+  &:first-child
+    border-top: 1px solid
+
+  &:hover
+    background-color: #5b6ac1
+
+.word__display
+  overflow: hidden
+  height: auto
+  padding: 0
+
+@keyframes slideInAside
+  from
+    width: 360px
+  to
+    width: 0
+
+@keyframes slideOutAside
+  from
+    width: 0
+  to
+    width: 360px

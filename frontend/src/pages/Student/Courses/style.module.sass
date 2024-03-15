@@ -1,0 +1,75 @@
+.course
+  color: black
+  padding: 20px
+
+  img
+    width: 100%
+
+.items
+  display: inline-grid
+  grid-template-columns: repeat(auto-fill, 380px)
+  width: 100%
+  gap: 20px
+
+.item
+  background-color: rgba(255, 255, 255, 0.8)
+  border-radius: 8px
+  box-sizing: border-box
+  padding: 20px
+  transition: transform 0.3s ease
+  width: 370px
+
+  &:hover
+    transform: translateY(-5px)
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)
+
+.progress
+  padding: 0
+
+.progress__container
+  background-color: #e2e7ed
+  border-radius: 7px
+  height: 10px
+  width: 100%
+
+.progress__status
+  background-color: #e2e7ed
+  border-radius: 7px
+  margin-top: 10px
+
+.progress__status
+  background-color: #3f51b5ad
+  height: 100%
+  text-align: right
+
+.course__invalid
+  filter: grayscale(1)
+
+.button__container
+  text-align: left
+
+.button
+  background-color: #3f51b5ad
+  border-radius: 5px
+  color: white
+  display: inline-block
+  font-family: none
+  margin-bottom: 10px
+  padding: 10px
+  text-decoration: none
+  transition: background-color .2s ease
+
+  &:hover
+    background-color: #3f51b5
+
+.progress__value
+  border-radius: 7px
+  color: black
+  font-size: 10px
+  font-weight: bold
+  left: 0px
+  position: relative
+  top: -20px
+
+.description
+  line-height: 1.3
