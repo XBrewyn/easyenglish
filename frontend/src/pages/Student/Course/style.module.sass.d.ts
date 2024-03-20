@@ -3,7 +3,6 @@
 interface CssExports {
   'course': string;
   'course__bar': string;
-  'course__button': string;
   'course__buttonLeft': string;
   'course__buttonPlay': string;
   'course__buttonRight': string;

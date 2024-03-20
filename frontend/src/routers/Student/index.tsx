@@ -9,7 +9,7 @@ import Course from '../../pages/Student/Course';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Navigator tabs={tabs} />}>
-      <Route index element={<Course />} />
+      <Route index element={<Courses />} />
       <Route path="course/:id" element={<Course />} />
       <Route path="profile" element={<Profile />} />
       <Route path="close" element={null} />

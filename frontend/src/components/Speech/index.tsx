@@ -47,9 +47,14 @@ const Speech: React.FC<Props> = ({
         recognition.stop();
       }
 
-      recognition.onerror = (): void => {
-        setOutput('Try again');
+      recognition.onerror = (event: any): void => {       
         setCanPlay(false);
+
+        if (event.error === 'not-allowed') {
+          setOutput('Active el microfono.');
+        } else {
+          console.log(`Error: ${event.error}`);
+        }
       }
 
       recognition.onend = (): void => {
@@ -71,7 +76,6 @@ const Speech: React.FC<Props> = ({
       {canPlay ? (
         <svg
           fill="currentColor"
-          height="40px"
           stroke="currentColor"
           strokeWidth="0"
           viewBox="0 0 512 512"

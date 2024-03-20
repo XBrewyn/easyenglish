@@ -18,19 +18,18 @@ type Course = {
   picture: string;
   title: string;
   description: string;
-  dateEnd: Date | null;
-  dateStart: Date | null;
+  dateEnd: null | Date;
+  dateStart: null | Date;
   isCompleted: boolean;
   progress: number;
-  idRequired: number | null;
-  lessons: Lesson[];
+  currentLessonIndex: number;
+  currentWordIndex: number;
+  canTake: boolean;
 }
 
 type Lesson = {
-  quizSize: number;
-  topicSize: number;
-  quizzes: Quiz[];
   title: string;
+  isCompleted: false;
   words: Word[];
 }
 
@@ -40,12 +39,13 @@ type Quiz = {
 }
 
 type Word = {
-  spanishTranslation: string;
   englishWord: string;
-  sentences: Sentence[];
+  spanishTranslation: string;
   isCompleted: boolean;
-  isReadyForNextWord: boolean;
   audioUrl: string;
+  currentSentencesIndex: number;
+  canTake: boolean;
+  sentences: Sentence[];
 }
 
 type Sentence = {

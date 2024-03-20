@@ -1,3 +1,5 @@
+@import '../../public/mixin/index.module'
+
 .speech
   display: flex
   flex-direction: column
@@ -5,3 +7,9 @@
 
   &__icon
     cursor: pointer
+
+  @include mobile
+    svg
+      width: 30px
+    p
+      font-size: 1rem

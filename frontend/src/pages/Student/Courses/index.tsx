@@ -9,53 +9,42 @@ import { Link } from 'react-router-dom';
 const Courses: React.FC = () => {
   const [{ courses }] = useContext<[State, Payload]>(context);
 
-  const canTakeCourse = (key: number | null) => {
-    const courseAvalidables: { [key: number]: boolean } = {
-      1: true,
-      2: false
-    }
-
-    if (key === null) return true;
-
-    return courseAvalidables[key] || false;
-  }
-
   return (
     <section className={style.course}>
-      <Header title="Course" />
-      <div className={style.items}>
+      <Header title="Cursos" />
+      <div className={style.course__items}>
         {courses?.map(({
           id,
           picture,
           title,
           description,
-          dateEnd,
-          dateStart,
-          isCompleted,
-          idRequired,
+          // dateEnd,
+          // dateStart,
+          // isCompleted,
+          canTake,
           progress
         }: Course, index: number) => {
           const progressFormated: string = `${progress * 100}%`;
-          const classNameCourseValid = canTakeCourse(idRequired) ? '' : style.course__invalid;
+          const classNameCourseValid: string = canTake ? '' : style.course__invalid;
 
           return (
-            <article key={index} className={`${style.item} ${classNameCourseValid}`}>
+            <article key={index} className={`${style.course__item} ${classNameCourseValid}`}>
               <header>
-                <GoogleDriveImage id={picture} alt={title}  />
-                <h2>{title}</h2>
-                <p className={style.description}>{description}</p>
+                <GoogleDriveImage id={picture} alt={title} className={style.course__picture} />
+                <h2 className={style.course__title}>{title}</h2>
+                <p className={style.course__description}>{description}</p>
               </header>
-              {canTakeCourse(id) && (
+              {canTake && (
                 <>
-                  <div className={style.button__container}>
-                    <Link className={style.button} to={`course/${id}`}>
+                  <div className={style.course__button_container}>
+                    <Link className={style.course__button} to={`course/${id}`}>
                       ¡Comienza ya!
                     </Link>
                   </div>
-                  <div className={style.progress}>
-                    <div className={style.progress__container}>
-                      <div className={style.progress__status} style={{ width: progressFormated }}>
-                        <span className={style.progress__value}>{progressFormated}</span>
+                  <div className={style.course__progress}>
+                    <div className={style.course__progress_container}>
+                      <div className={style.course__progress_status} style={{ width: progressFormated }}>
+                        <span className={style.course__progress_value}>{progressFormated}</span>
                       </div>
                     </div>
                   </div>

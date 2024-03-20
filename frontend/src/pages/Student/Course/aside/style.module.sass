@@ -1,13 +1,72 @@
+@import '../../../../public/mixin/index.module'
+  
 .aside
   background: #3F51B5
   border: solid 1px #f1f1f1
   color: white
   height: 100vh
-  overflow: hidden
+  position: absolute
   width: 0
+  z-index: 1
 
-.title
-  margin-left: 20px
+  &__title
+    margin-left: 20px
+    overflow: hidden
+
+  &__button
+    background-color: #3f51b5
+    border-bottom-right-radius: 5px
+    border-top-right-radius: 5px
+    cursor: pointer
+    margin: 0 -30px
+    padding: 7px
+    position: absolute
+
+  &__words
+    height: 0
+    overflow: hidden
+
+  &__lession
+    border-bottom: solid 1px #f1f1f1
+    cursor: pointer
+    list-style: none
+
+    &:first-child
+      border-top: solid 1px #f1f1f1
+
+  &__lessions
+    margin: 0
+    padding: 0
+    overflow: hidden
+
+  &__lession_title
+    display: block
+    list-style: none
+    padding: 10px 10px
+
+  &__word
+    cursor: pointer
+    list-style: none
+    padding: 10px
+    transition: background-color 0.3s ease
+
+    &:first-child
+      border-top: 1px solid
+
+    &:hover
+      background-color: #5b6ac1
+
+  @include mobile
+    &__title,
+    &__lession_title,
+    &__word
+      font-size: 14px
+
+    .icon__lock
+      width: 15px
+      position: relative
+      left: -5px
+      top: 5px
 
 .hide
   animation: slideInAside 0.5s forwards
@@ -19,59 +78,22 @@
   display: flex
   justify-content: flex-end
 
-.button
-  background-color: #3f51b5
-  border-bottom-right-radius: 5px
-  border-top-right-radius: 5px
-  cursor: pointer
-  margin: 0 -30px
-  padding: 7px
-  position: absolute
-
   svg
     margin-top: 10px
-
-.words
-  overflow: hidden
-  height: 0
-
-.lession
-  border-bottom: solid 1px #f1f1f1
-  cursor: pointer
-  list-style: none
-
-  &:first-child
-    border-top: solid 1px #f1f1f1
-
-.lessions
-  margin: 0
-  padding: 0
-
-.lession__title
-  display: block
-  padding: 10px 10px
-  list-style: none
-
-.word
-  list-style: none
-  cursor: pointer
-  padding: 10px
-  transition: background-color 0.3s ease
-
-  &:first-child
-    border-top: 1px solid
-
-  &:hover
-    background-color: #5b6ac1
 
 .word__display
   overflow: hidden
   height: auto
   padding: 0
 
+.icon__lock
+  position: relative
+  left: -5px
+  top: 3px
+
 @keyframes slideInAside
   from
-    width: 360px
+    width: 300px
   to
     width: 0
 
@@ -79,4 +101,4 @@
   from
     width: 0
   to
-    width: 360px
+    width: 300px

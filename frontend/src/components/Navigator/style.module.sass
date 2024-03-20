@@ -10,6 +10,7 @@
   top: 0
   width: 100%
   z-index: 2
+  height: 103.25px
 
   &__links
     display: flex
@@ -17,6 +18,10 @@
     justify-content: space-around
     list-style: none
     width: 400px
+
+    &:has(.navigator__user)
+      > .navigator__link_container
+        display: none
 
   &__link_container
     margin-top: 15px
@@ -40,6 +45,34 @@
     height: 3px
     width: 100%
 
+  &__logo
+    height: 50px
+    width: 50px
+
+  &__user
+    display: flex
+    align-items: center
+    position: relative
+    cursor: pointer
+
+    &:hover
+      .navigator__user_links
+        display: block
+
+  &__user_name
+    padding: 15px 0
+
+  &__user_links
+    background-color: white
+    border-radius: 5px
+    border: solid 1px #e5e5e5
+    display: none
+    list-style: none
+    padding: 0 20px 10px 20px
+    position: absolute
+    top: 40px
+    left: 10px
+
   @include mobile
     justify-content: space-between
 
@@ -47,16 +80,24 @@
       display: flex
 
     &__links
-      background: white
+      background: #ffffff
       border: solid 1px #efefef
       display: none
-      height: 180px
       padding: 20px
+      padding-top: 0
       position: fixed
-      right: 0
-      top: 75px
+      right: 20px
+      top: 50px
       width: 130px
 
     &__open
       & > .navigator__links
         display: block
+
+    &__user
+      display: none
+
+    &__links
+      &:has(.navigator__user)
+        > .navigator__link_container
+          display: block
