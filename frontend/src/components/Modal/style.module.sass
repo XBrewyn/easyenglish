@@ -1,0 +1,32 @@
+@import '../../public/mixin/index.module'
+
+.modal
+  align-items: center
+  animation: fadeInOut 3s forwards
+  background: #ffffff
+  color: black
+  display: flex
+  height: 100%
+  justify-content: center
+  left: 0
+  position: absolute
+  text-align: center
+  top: 0
+  width: 100%
+  z-index: 2
+
+  &__container
+    z-index: 4
+
+  &__title
+    font-size: 50px
+
+  &__paragraph
+    font-size: 1rem
+
+  @keyframes fadeInOut
+    0%
+      opacity: 0
+
+    100%
+      opacity: 1

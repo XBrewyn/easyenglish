@@ -2,15 +2,16 @@
 // Please do not change this file!
 interface CssExports {
   'course': string;
+  'course__arrowLeft': string;
+  'course__arrowRight': string;
   'course__bar': string;
-  'course__buttonLeft': string;
   'course__buttonPlay': string;
-  'course__buttonRight': string;
   'course__buttons': string;
   'course__container': string;
   'course__content': string;
   'course__feedback': string;
   'course__image': string;
+  'course__link': string;
   'course__message': string;
   'course__playText': string;
   'course__progress': string;

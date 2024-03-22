@@ -6,13 +6,13 @@ interface CssExports {
   'aside__lession': string;
   'aside__lession_title': string;
   'aside__lessions': string;
+  'aside__padlock': string;
   'aside__title': string;
   'aside__word': string;
   'aside__words': string;
   'button__container': string;
   'display': string;
   'hide': string;
-  'icon__lock': string;
   'slideInAside': string;
   'slideOutAside': string;
   'word__display': string;

@@ -4,6 +4,7 @@ interface CssExports {
   'course': string;
   'course__button': string;
   'course__button_container': string;
+  'course__container': string;
   'course__description': string;
   'course__invalid': string;
   'course__item': string;

@@ -68,16 +68,16 @@
     display: flex
     justify-content: center
 
-  &__buttonLeft,
-  &__buttonRight
+  &__arrowLeft,
+  &__arrowRight
     cursor: pointer
     position: absolute
     top: calc(300px / 2)
 
-  &__buttonLeft
+  &__arrowLeft
     left: -80px
 
-  &__buttonRight
+  &__arrowRight
     right: -80px
 
   &__slideshowWord
@@ -125,6 +125,9 @@
   &__feedback
     display: inline
 
+  &__link
+    z-index: 4
+
   @include mobile
     &__content
       width: 100%
@@ -153,17 +156,16 @@
     &__message
       font-size: 0.8rem
 
-    &__buttonLeft,
-    &__buttonRight
-      svg
-        width: 30px
+    &__arrowLeft,
+    &__arrowRight
+      width: 30px
 
-    &__buttonLeft,
-    &__buttonRight
+    &__arrowLeft,
+    &__arrowRight
       top: calc(150px / 2)
 
-    &__buttonLeft
+    &__arrowLeft
       left: -30px
 
-    &__buttonRight
+    &__arrowRight
       right: -30px

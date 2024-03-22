@@ -48,6 +48,7 @@ module.exports = {
       filename: 'index.html',
       template: path.resolve(__dirname, 'src', 'public', 'index.html'),
       hash: true,
+      favicon: './src/public/favicon.ico',
     }),
   ],
 };

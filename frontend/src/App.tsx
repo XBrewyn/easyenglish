@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import RouterHomePage from './routers/HomePage';
 import context from './global/state/context';
 import initialState from './global/state/state';
@@ -12,7 +12,7 @@ const App: React.FC = (): JSX.Element => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    // dispatch({ type: SET_USER, payload: {});
+    // dispatch({ type: SET_USER, payload: null });
     // dispatch({ type: SET_COURSES, payload: [] });
   }, []);
 

@@ -3,8 +3,10 @@
 interface CssExports {
   'profile': string;
   'profile__bio': string;
+  'profile__container': string;
   'profile__details': string;
   'profile__info': string;
+  'profile__last_name': string;
   'profile__name': string;
   'profile__picture': string;
 }

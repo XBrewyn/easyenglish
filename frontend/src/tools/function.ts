@@ -2,10 +2,10 @@ import { User } from '../global/state/type';
 import { Role, Request, RequestOptions, Send } from './type';
 
 const isUser = (user: User | null, role: Role): boolean =>
-  !!(user && user.role === role)
+  !!(user && user.role === role);
 
 const send = ({ token = '', api, data }: Request): Send => {
-  const url: string = `http://localhost:3000/api/v1/${api}`;
+  const url: string = `https://easyenglish-users.fly.dev/api/v1/${api}`;
   const settings: RequestOptions = {
     method: 'GET',
     headers: {
@@ -49,11 +49,15 @@ const send = ({ token = '', api, data }: Request): Send => {
   };
 };
 
-const call = (condiction: { [key: string]: () => void }, key: string, defaultValue = null) =>
+const call = (condiction: { [key: string]: () => void }, key: string, defaultValue = null): any =>
   typeof condiction[key] === 'function' ? condiction[key]() : defaultValue;
+
+const toUpperCaseFirstLetter = (value: string): string =>
+  value.charAt(0).toUpperCase() + value.slice(1);
 
 export {
   isUser,
   send,
-  call
+  call,
+  toUpperCaseFirstLetter
 }

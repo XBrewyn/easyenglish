@@ -55,7 +55,7 @@ const Home: React.FC = () => (
           <li className={style.home__item}>Conveniencia</li>
         </ul>
         <Link
-          to="#"
+          to="register"
           className={style.home__button}
         >
           Empieza Ahora
@@ -323,7 +323,7 @@ const Home: React.FC = () => (
             </p>
             <div className={style.join__bottom}>
               <Link
-                to="#"
+                to="/register"
                 className={style.join__button}
               >
                 Comienza Ahora
@@ -345,8 +345,8 @@ const Home: React.FC = () => (
               Da el próximo paso hacia tus metas personales y profesionales, estudia con nosotros.
               Nuestro programa es flexible y personalizado, para que puedas aprender a tu propio ritmo y según tus necesidades.
               ¡Inscríbete hoy y empieza el camino hacia el éxito con el Inglés!
-              <Link to="#" className={style.block}>Inscríbete Ahora</Link>
-              <Link to="#" className={style.block}>¿Ya tienes tu cuenta con nosotros?</Link>
+              <Link to="register" className={style.block}>Inscríbete Ahora</Link>
+              <Link to="login" className={style.block}>¿Ya tienes tu cuenta con nosotros?</Link>
             </p>
           </div>
         </div>

@@ -1,4 +1,5 @@
 @mixin hero-section-styles($background-image, $color-white: #ffffff)
+  background-attachment: fixed
   background-image: url(#{$background-image})
   background-position: center center
   background-repeat: no-repeat
@@ -6,7 +7,6 @@
   color: $color-white
   display: flex
   position: relative
-  background-attachment: fixed
 
   @include mobile
     height: auto

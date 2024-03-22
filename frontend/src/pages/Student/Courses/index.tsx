@@ -31,25 +31,28 @@ const Courses: React.FC = () => {
             <article key={index} className={`${style.course__item} ${classNameCourseValid}`}>
               <header>
                 <GoogleDriveImage id={picture} alt={title} className={style.course__picture} />
+              </header>
+              <div className={style.course__container}>
                 <h2 className={style.course__title}>{title}</h2>
                 <p className={style.course__description}>{description}</p>
-              </header>
-              {canTake && (
-                <>
-                  <div className={style.course__button_container}>
-                    <Link className={style.course__button} to={`course/${id}`}>
-                      ¡Comienza ya!
-                    </Link>
-                  </div>
-                  <div className={style.course__progress}>
-                    <div className={style.course__progress_container}>
-                      <div className={style.course__progress_status} style={{ width: progressFormated }}>
-                        <span className={style.course__progress_value}>{progressFormated}</span>
+
+                {canTake && (
+                  <>
+                    <div className={style.course__button_container}>
+                      <Link className={style.course__button} to={`course/${id}`}>
+                        ¡Comienza ya!
+                      </Link>
+                    </div>
+                    <div className={style.course__progress}>
+                      <div className={style.course__progress_container}>
+                        <div className={style.course__progress_status} style={{ width: progressFormated }}>
+                          <span className={style.course__progress_value}>{progressFormated}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </>
-              )}
+                  </>
+                )}
+              </div>
             </article>
           )
         })}

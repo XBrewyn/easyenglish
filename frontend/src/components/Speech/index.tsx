@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import SVGStopAudio from '../../public/svg/stopAudio.svg';
+import SVGSPlayAudio from '../../public/svg/playAudio.svg';
 import style from './style.module.sass';
 
 interface Props {
@@ -74,30 +76,19 @@ const Speech: React.FC<Props> = ({
   return (
     <div className={style.speech}>
       {canPlay ? (
-        <svg
-          fill="currentColor"
-          stroke="currentColor"
-          strokeWidth="0"
-          viewBox="0 0 512 512"
-          width="40px"
-          xmlns="http://www.w3.org/2000/svg"
+        <img
+          alt="Stop pronunciation"
           className={style.speech__icon}
           onClick={onStop}
-        >
-          <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm96-280v160c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16zm-112 0v160c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16z"></path></svg>
+          src={SVGStopAudio}
+        />
       ) : (
-        <svg
-          fill="currentColor"
-          stroke="currentColor"
-          strokeWidth="0"
-          viewBox="0 0 512 512"
-          width="40px"
-          xmlns="http://www.w3.org/2000/svg"
-          onClick={startListening}
+        <img
+          alt="Play pronunciation"
           className={style.speech__icon}
-        >
-          <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 147.1c7.6-4.2 16.8-4.1 24.3 .5l144 88c7.1 4.4 11.5 12.1 11.5 20.5s-4.4 16.1-11.5 20.5l-144 88c-7.4 4.5-16.7 4.7-24.3 .5s-12.3-12.2-12.3-20.9V168c0-8.7 4.7-16.7 12.3-20.9z"></path>
-        </svg>
+          onClick={startListening}
+          src={SVGSPlayAudio}
+        />
       )}
       <p>{output || 'Pronunciar'}</p>
     </div>

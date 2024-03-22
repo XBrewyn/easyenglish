@@ -1,5 +1,4 @@
 {
-
   "compilerOptions": {
     "jsx": "react",
     "target": "es5",
@@ -8,5 +7,5 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
-  }
+  },
 }

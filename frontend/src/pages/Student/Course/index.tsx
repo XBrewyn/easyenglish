@@ -1,17 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Course, Lesson, Payload, Sentence, State, Word } from '../../../global/state/type';
 import context from '../../../global/state/context';
 import Aside from './aside';
 import Speech from '../../../components/Speech';
+import SVGArrowLeft from '../../../public/svg/arrowLeft.svg';
+import SVGArrowRight from '../../../public/svg/arrowRight.svg'
 import style from './style.module.sass';
+import Modal from '../../../components/Modal';
 
 const Course: React.FC = (): JSX.Element => {
   const { id = 0 } = useParams<string>();
   const [{ courses = [] }] = useContext<[State, Payload]>(context);
   const [feedback, setFeedback] = useState({ canShow: false, message: '' });
   const [isPlaySpeech, setPlaySpeech] = useState<boolean>(false);
-  const [lessionTitle, setLessionTitle] = useState<string>(''); 
+  const [lessionTitle, setLessionTitle] = useState<string>('');
   const [sentenceIndex, setSentenceIndex] = useState<number>(0);
   const [currentIndexLesson, setCurrentIndexLesson] = useState<number>(0);
   const [wordIndex, setWordIndex] = useState<number>(0);
@@ -19,6 +22,7 @@ const Course: React.FC = (): JSX.Element => {
   const [sentence, setSentence] = useState<Sentence>();
   const [word, setWord] = useState<Word>();
   const [lessons, setLessons] = useState<Lesson[]>([]);
+  const [canShowModal, setCanShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     if (courses.length) {
@@ -66,7 +70,7 @@ const Course: React.FC = (): JSX.Element => {
       const nextLessionIndex: number = currentIndexLesson + 1;
       const nextWord: any = lessons[currentIndexLesson].words[nextWordIndex];
       const lession = lessons[nextLessionIndex];
-      const currentWord =  lessons[currentIndexLesson].words[wordIndex];
+      const currentWord = lessons[currentIndexLesson].words[wordIndex];
 
       if (nextWord) {
         nextWord.canTake = true;
@@ -100,7 +104,9 @@ const Course: React.FC = (): JSX.Element => {
           currentLessonIndex: nextLessionIndex,
           currentWordIndex: 0,
         }));
-      }     
+      } else {
+        setCanShowModal(true);
+      }
     }
   }
 
@@ -154,7 +160,7 @@ const Course: React.FC = (): JSX.Element => {
 
     return word.sentences.reduce((currentState: number, nextState: any): number =>
       nextState.isCompleted ? currentState + 1 : currentState
-    , 0);
+      , 0);
   }
 
   return (
@@ -200,47 +206,27 @@ const Course: React.FC = (): JSX.Element => {
                 </span>
               </div>
               <div className={style.course__buttons}>
-                <div className={style.course__buttonLeft}>
-                  <div
+                {sentenceIndex > 0 && (
+                  <img
+                    alt="Previous arrow"
+                    className={style.course__arrowLeft}
                     onClick={onPrev}
-                  >
-                    {sentenceIndex > 0 && (
-                      <svg
-                        stroke="currentColor"
-                        fill="currentColor"
-                        strokeWidth="0"
-                        viewBox="0 0 512 512"
-                        width="40px"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M8 256c0 137 111 248 248 248s248-111 248-248S393 8 256 8 8 119 8 256zm448 0c0 110.5-89.5 200-200 200S56 366.5 56 256 145.5 56 256 56s200 89.5 200 200zm-72-20v40c0 6.6-5.4 12-12 12H256v67c0 10.7-12.9 16-20.5 8.5l-99-99c-4.7-4.7-4.7-12.3 0-17l99-99c7.6-7.6 20.5-2.2 20.5 8.5v67h116c6.6 0 12 5.4 12 12z"></path>
-                      </svg>
-                    )}
-                  </div>
-                </div>
+                    src={SVGArrowLeft}
+                  />
+                )}
                 <img
                   src={sentence?.imageUrl}
-                  alt="photo"
+                  alt="Sentence"
                   className={style.course__image}
                 />
-                <div className={style.course__buttonRight}>
-                  {sentence?.isCompleted && (
-                    <div
-                      onClick={onNext}
-                    >
-                      <svg
-                        stroke="currentColor"
-                        fill="currentColor"
-                        strokeWidth="0"
-                        viewBox="0 0 512 512"
-                        width="40px"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256zm72 20v-40c0-6.6 5.4-12 12-12h116v-67c0-10.7 12.9-16 20.5-8.5l99 99c4.7 4.7 4.7 12.3 0 17l-99 99c-7.6 7.6-20.5 2.2-20.5-8.5v-67H140c-6.6 0-12-5.4-12-12z"></path>
-                      </svg>
-                    </div>
-                  )}
-                </div>
+                {sentence?.isCompleted && (
+                  <img
+                    alt="Next arrow"
+                    className={style.course__arrowRight}
+                    onClick={onNext}
+                    src={SVGArrowRight}
+                  />
+                )}
               </div>
               <div className={style.course__pronunciation}>
                 <Speech
@@ -266,6 +252,13 @@ const Course: React.FC = (): JSX.Element => {
           </div>
         </div>
       </div>
+      <Modal
+        canShow={canShowModal}
+        text="Has completado el curso."
+        title="¡Felicidades!"
+      >
+        <Link to="/">volver a los cursos</Link>
+      </Modal>
     </section>
   );
 };

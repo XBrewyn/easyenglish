@@ -17,7 +17,7 @@ const Login: React.FC = () => {
     <section className={style.register}>
       <div>
         <header>
-          <h1>Inscripción</h1>
+          <h1>Log in</h1>
         </header>
         <Form
           api="auth"

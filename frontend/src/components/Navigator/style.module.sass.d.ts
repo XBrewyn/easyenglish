@@ -7,8 +7,8 @@ interface CssExports {
   'navigator__link': string;
   'navigator__link_container': string;
   'navigator__links': string;
-  'navigator__logo': string;
   'navigator__open': string;
+  'navigator__picture': string;
   'navigator__user': string;
   'navigator__user_links': string;
   'navigator__user_name': string;

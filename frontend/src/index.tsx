@@ -14,10 +14,13 @@ root.render(
 );
 
 /*
+  In the future, we're going to use these lines of code to implement server side rendering.
+
   const root: Root = hydrateRoot(
-  container, (
-  <React.StrictMode>
-  <App />
-  </React.StrictMode>
-  ));
+    container, (
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    )
+  );
 */

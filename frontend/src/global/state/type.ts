@@ -61,7 +61,7 @@ type State = {
   courses: any //Course[] | null;
 }
 
-type Payload = User | Course[];
+type Payload = User | Course[] | null;
 type Action = typeof SET_COURSES | typeof SET_USER;
 
 type Option = {

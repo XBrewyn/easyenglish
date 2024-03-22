@@ -3,20 +3,32 @@ import { Payload, State } from '../../../global/state/type';
 import context from '../../../global/state/context';
 import style from './style.module.sass';
 
-const Profile: React.FC = () => {
+const Profile: React.FC = (): JSX.Element => {
   const [{ user }] = useContext<[State, Payload]>(context);
 
   return (
     <section>
       <div className={style.profile}>
-        <img src={user?.photo} alt="User Profile Picture" className={style.profile__picture} />
-        <div className={style.profile__info}>
-          <h1 className={style.profile__name}>{user?.name} </h1>
-          <p className={style.profile__bio}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam hendrerit elit vel mauris consectetur, et ultrices mi ultricies.</p>
-          <ul className={style.profile__details}>
-            <li><strong>Email:</strong> {user?.email}</li>
-            <li><strong>Last Name:</strong> {user?.lastName}</li>
-          </ul>
+        <div className={style.profile__container}>
+          <div>
+            <h1>Profile</h1>
+          </div>
+          <div>
+            <img src={user?.photo} alt="User Profile Picture" className={style.profile__picture} />
+          </div>
+          <div className={style.profile__info}>
+            <ul className={style.profile__details}>
+              <li className={style.profile__name}>
+                <strong>Nombre:</strong> {user?.name}
+              </li>
+              <li className={style.profile__last_name}>
+                <strong>Last Name:</strong> {user?.lastName}
+              </li>
+              <li>
+                <strong>Email:</strong> {user?.email}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>

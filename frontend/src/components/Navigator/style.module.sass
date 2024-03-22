@@ -4,13 +4,13 @@
   background-color: white
   border-bottom: solid 1px #e9e9e9
   display: flex
-  justify-content: space-around
+  height: 103.25px
+  justify-content: space-between
   padding: 20px
   position: fixed
   top: 0
   width: 100%
   z-index: 2
-  height: 103.25px
 
   &__links
     display: flex
@@ -30,6 +30,8 @@
     color: #0170b9
     text-decoration: none
     text-transform: capitalize
+    font-size: 14px
+    font-weight: bold
 
   &__hamburger
     cursor: pointer
@@ -45,33 +47,42 @@
     height: 3px
     width: 100%
 
-  &__logo
+  &__picture
     height: 50px
+    position: relative
+    right: 10px
     width: 50px
 
   &__user
-    display: flex
     align-items: center
-    position: relative
+    color: #535353
     cursor: pointer
+    display: flex
+    font-size: 14px
+    font-weight: bold
 
     &:hover
       .navigator__user_links
         display: block
 
   &__user_name
+    overflow: hidden
     padding: 15px 0
+    text-overflow: ellipsis
+    text-transform: capitalize
+    white-space: nowrap
+    width: 100px
 
   &__user_links
-    background-color: white
+    background-color: #fff
     border-radius: 5px
     border: solid 1px #e5e5e5
     display: none
     list-style: none
+    margin-left: 44px
+    margin-top: 151px
     padding: 0 20px 10px 20px
     position: absolute
-    top: 40px
-    left: 10px
 
   @include mobile
     justify-content: space-between

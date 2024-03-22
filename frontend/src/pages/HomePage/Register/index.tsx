@@ -7,12 +7,11 @@ import style from './style.module.sass';
 
 const Register: React.FC = () => {
   const onData = (data: any) => {
-    console.log(data)
     call({
       [HTTP_STATUS_CODES.OK]: () => {
         console.log(data)
       },
-      [HTTP_STATUS_CODES.OK]: () => { }
+      [HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR]: () => { }
     }, data?.status);
   }
 
@@ -23,7 +22,7 @@ const Register: React.FC = () => {
           <h1>Inscripción</h1>
         </header>
         <Form
-          api="register"
+          api="users"
           buttonText="Inscribirme ahora"
           inputs={inputs}
           onData={onData}

@@ -29,12 +29,6 @@ const Navigator: React.FC<Props> = ({ tabs = defaultTabs }): JSX.Element => {
     setCanOpen(newState);
   }
 
-  const toUpperCaseFirstLetter = (value: string): string =>
-    value.charAt(0).toUpperCase() + value.slice(1);
-
-  const getUser = (): string =>
-    `${toUpperCaseFirstLetter(user.name)} ${toUpperCaseFirstLetter(user.lastName)}`;
-
   const Links = () =>
     tabs.map(({ path, value }: Tab, index: number): JSX.Element => (
       <li key={index} className={style.navigator__link_container}>
@@ -48,17 +42,19 @@ const Navigator: React.FC<Props> = ({ tabs = defaultTabs }): JSX.Element => {
     <>
       <nav className={style.navigator} ref={nav}>
         <div>
-          <GoogleDriveImage id="1Le1RvHt1b3TDv9Tf_hFRdSD2u6tHAyWK" alt="logo" />
+          <Link className={style.navigator__link} to="/">
+            <GoogleDriveImage id="1Le1RvHt1b3TDv9Tf_hFRdSD2u6tHAyWK" alt="logo" />
+          </Link>
         </div>
         <ul className={style.navigator__links}>
           {user && (
             <li className={style.navigator__user}>
               <img
-                className={style.navigator__logo}
+                className={style.navigator__picture}
                 src={user.photo}
               />
               <span className={style.navigator__user_name}>
-                {getUser()}
+                {`${user.name} ${user.lastName}`}
               </span>
               <ul className={style.navigator__user_links} >
                 <Links />

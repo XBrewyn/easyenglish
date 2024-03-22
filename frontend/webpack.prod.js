@@ -8,7 +8,12 @@ module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.tsx'),
 
   output: {
-    path: path.resolve(__dirname, '../backend/build'),
+    path: path.resolve(__dirname, './server/build'),
+    /*
+      In the future, we're going to use these lines of code to implement code splitting.
+    
+      filename: '[name].[chunkhash].js',
+    */
     filename: 'bundle.js',
     publicPath: '/',
   },
@@ -49,6 +54,16 @@ module.exports = {
       filename: 'index.html',
       template: path.resolve(__dirname, 'src', 'public', 'index.html'),
       hash: true,
+      favicon: './src/public/favicon.ico',
     }),
   ],
+  /*
+    In the future, we're going to use these lines of code to implement code splitting.
+
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+      },
+    },
+  */
 };
