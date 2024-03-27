@@ -1,5 +1,3 @@
-type Role = 'ADMIN' | 'STUDENT';
-
 type Request = {
   token?: string;
   api: string;
@@ -23,7 +21,6 @@ type Send = {
 }
 
 export type {
-  Role,
   Request,
   RequestOptions,
   Send

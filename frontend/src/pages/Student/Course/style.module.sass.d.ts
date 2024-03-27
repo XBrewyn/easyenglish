@@ -5,6 +5,7 @@ interface CssExports {
   'course__arrowLeft': string;
   'course__arrowRight': string;
   'course__bar': string;
+  'course__button': string;
   'course__buttonPlay': string;
   'course__buttons': string;
   'course__container': string;

@@ -1,48 +1,52 @@
-import { User } from '../global/state/type';
-import { Role, Request, RequestOptions, Send } from './type';
-
-const isUser = (user: User | null, role: Role): boolean =>
-  !!(user && user.role === role);
+import { Request, RequestOptions, Send } from './type';
 
 const send = ({ token = '', api, data }: Request): Send => {
-  const url: string = `https://easyenglish-users.fly.dev/api/v1/${api}`;
+  const url: string = `https://easyenglish-users.fly.dev/api/v1/${api}/`;
   const settings: RequestOptions = {
-    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      ...(token ? { 'x-auth-token': token } : {}),
-      ...(data ? { 'body': JSON.stringify(data) } : {}),
+      // Remove 'body' key from headers
+      // ...(data ? { 'Authorization': `Bearer ${token}` } : {}),
     },
+    // Set default method to 'GET'
+    method: 'GET',
+    // Add 'body' property if data is provided
+    ...(data ? { body: JSON.stringify(data) } : {}),
   };
 
   const request = async (settings: RequestOptions): Promise<Response> => {
     try {
       const response = await fetch(url, settings);
-      const responseData: Promise<any> = await response.json();
+      const responseData: any = await response.json();
       return responseData;
     } catch (error) {
       console.error('Error fetching data:', error);
-      throw new Error('Error fetching data');
+      // Throw error object instead of creating a new Error instance
+      throw error;
     }
   };
 
   return {
     get: (): Promise<Response> => {
+      // Set method to 'GET' for each request
       settings.method = 'GET';
       return request(settings);
     },
 
     post: (): Promise<Response> => {
+      // Set method to 'POST' for each request
       settings.method = 'POST';
       return request(settings);
     },
 
     delete: (): Promise<Response> => {
+      // Set method to 'DELETE' for each request
       settings.method = 'DELETE';
       return request(settings);
     },
 
     put: (): Promise<Response> => {
+      // Set method to 'PUT' for each request
       settings.method = 'PUT';
       return request(settings);
     },
@@ -56,7 +60,6 @@ const toUpperCaseFirstLetter = (value: string): string =>
   value.charAt(0).toUpperCase() + value.slice(1);
 
 export {
-  isUser,
   send,
   call,
   toUpperCaseFirstLetter

@@ -4,8 +4,6 @@ import context from './global/state/context';
 import initialState from './global/state/state';
 import reducer from './global/state/reduce';
 import { SET_COURSES, SET_USER } from './global/state/actionTypes';
-import { ROLE } from './tools/constant';
-import { isUser } from './tools/function';
 import RouterStudent from './routers/Student';
 
 const App: React.FC = (): JSX.Element => {
@@ -18,8 +16,7 @@ const App: React.FC = (): JSX.Element => {
 
   return (
     <context.Provider value={[state, dispatch]}>
-      {state.user === null && <RouterHomePage />}
-      {isUser(state.user, ROLE.STUDENT) && <RouterStudent />}
+      {true ? <RouterStudent /> : <RouterHomePage />}
     </context.Provider>
   );
 }

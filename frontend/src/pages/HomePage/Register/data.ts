@@ -5,7 +5,7 @@ type Inputs = {
   username: Field;
   email: Field;
   password: Field;
-  phone: Field;
+  phoneNumber: Field;
   name: Field;
   lastName: Field;
 };
@@ -55,14 +55,15 @@ const inputs: Inputs = {
     },
   },
 
-  phone: {
+  phoneNumber: {
     label: 'Teléfono (opcional)',
-    name: 'phone',
+    name: 'phoneNumber',
     type: 'text',
     placeholder: 'Escriba su teléfono.',
     validation: {
       message: 'Por favor, introduzca un número de teléfono.',
       regExp: REGEXP.PHONE_NUMBER,
+      isOpcional: true
     },
   },
 
@@ -71,6 +72,10 @@ const inputs: Inputs = {
     name: 'password',
     type: 'password',
     placeholder: 'Escriba su contraseña',
+    validation: {
+      message: 'Al menos 8 caracteres, una letra y un número.',
+      regExp: REGEXP.PASSWORD,
+    },
   },
 };
 

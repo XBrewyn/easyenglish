@@ -6,11 +6,13 @@ import { Option, State } from './type';
 
 const reducer = (state: State, { payload, type }: Option): State => ({
   [SET_USER]: (payload: any): State => {
-    return { ...state, user: payload };
-  },
+    const photo = payload.photo ? payload.photo : 'https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745';
 
+    return { ...state, user: { ...payload, photo } };
+  },
+  
   [SET_COURSES]: (payload: any): State => {
-    return { ...state, courses: payload };
+    return { ...state, course: { ...payload } };
   }
 }[type](payload));
 

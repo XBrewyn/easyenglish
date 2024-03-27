@@ -7,12 +7,12 @@ import SVGPadlockLocked from '../../../../public/svg/padlockLocked.svg';
 import style from './style.module.sass';
 
 interface Props {
-  lessons: Lesson[];
+  course: any;
   onClick: ({ word, wordIndex, indexLesson }: any) => void;
   title: string;
 };
 
-const Aside: React.FC<Props> = ({ lessons = [], onClick, title }): JSX.Element => {
+const Aside: React.FC<Props> = ({ course, onClick, title }): JSX.Element => {
   const [canClose, setCanClose] = useState<boolean>(true);
   const [sideBarClassName, setSideBarClassName] = useState<string>('');
   const currentLessonRef = useRef<HTMLLIElement | null>(null);
@@ -49,7 +49,7 @@ const Aside: React.FC<Props> = ({ lessons = [], onClick, title }): JSX.Element =
         <h4>{title}</h4>
       </div>
       <ul className={style.aside__lessions}>
-        {lessons.map((lesson: Lesson, indexLesson: number) => (
+        {course.lessons.map((lesson: Lesson, indexLesson: number) => (
           <li
             className={style.aside__lession}
             key={indexLesson}
@@ -63,7 +63,7 @@ const Aside: React.FC<Props> = ({ lessons = [], onClick, title }): JSX.Element =
                   key={wordIndex}
                   onClick={() => onClick({ word, wordIndex, indexLesson })}
                 >
-                  {word?.canTake ? (
+                  {course.unlockedWords[word._id] ? (
                     <img
                       alt="Padlock unlocked"
                       className={style.aside__padlock}

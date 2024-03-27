@@ -9,50 +9,47 @@ import SVGArrowRight from '../../../public/svg/arrowRight.svg'
 import style from './style.module.sass';
 import Modal from '../../../components/Modal';
 
+interface OnWord {
+  word: any;
+  indexLesson: number;
+}
+
 const Course: React.FC = (): JSX.Element => {
   const { id = 0 } = useParams<string>();
-  const [{ courses = [] }] = useContext<[State, Payload]>(context);
+  const [globalState] = useContext<[State, Payload]>(context);
   const [feedback, setFeedback] = useState({ canShow: false, message: '' });
   const [isPlaySpeech, setPlaySpeech] = useState<boolean>(false);
   const [lessionTitle, setLessionTitle] = useState<string>('');
   const [sentenceIndex, setSentenceIndex] = useState<number>(0);
-  const [currentIndexLesson, setCurrentIndexLesson] = useState<number>(0);
-  const [wordIndex, setWordIndex] = useState<number>(0);
-  const [course, setCourse] = useState<Course>();
+  const [course, setCourse] = useState<any>();
   const [sentence, setSentence] = useState<Sentence>();
-  const [word, setWord] = useState<Word>();
+  const [word, setWord] = useState<any>();
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [canShowModal, setCanShowModal] = useState<boolean>(false);
 
   useEffect(() => {
-    if (courses.length) {
-      const course = courses[0];
-      const currentLession: Lesson = course.lessons[course.currentLessonIndex];
-      const word: Word = currentLession.words[course.currentWordIndex];
+    if (globalState.course) {
+      const course = globalState.course;
+      const currentLession: Lesson = course.lessons[course.index.lesson];
+      const word: Word = currentLession.words[course.index.word];
 
       setLessons(course.lessons);
       setWord(word);
       setLessionTitle(currentLession.title);
-      setSentence(word.sentences[word.currentSentencesIndex]);
+      setSentence(word.sentences[sentenceIndex]);
       setCourse(course);
-      setSentenceIndex(word.currentSentencesIndex);
-      setWordIndex(course.currentWordIndex);
-      setCurrentIndexLesson(course.currentLessonIndex);
     }
   }, []);
 
-  const onWord = ({ word, wordIndex, indexLesson }: { word: Word; wordIndex: number; indexLesson: number; }): void => {
+  const onWord = ({ word, indexLesson }: OnWord): void => {
     const index: number = 0;
-    const lessionTitle: string = lessons[indexLesson].title;
 
-    if (word?.canTake) {
+    if (course.unlockedWords[word._id]) {
       setWord(word);
       setSentence(word.sentences[index]);
       setSentenceIndex(index);
-      setCurrentIndexLesson(indexLesson);
-      setWordIndex(wordIndex);
+      setLessionTitle(lessons[indexLesson].title);
       cleanFeedback();
-      setLessionTitle(lessionTitle);
     }
   }
 
@@ -66,57 +63,54 @@ const Course: React.FC = (): JSX.Element => {
     if (sentenceIndex < len && sentence?.isCompleted) {
       update(sentenceIndex + 1);
     } else if (sentenceIndex === len) {
-      const nextWordIndex: number = wordIndex + 1;
+      const currentIndexLesson: number = course.index.lesson;
+      const currentIndexWord: number = course.index.word; 
+      const nextWordIndex: number = currentIndexWord + 1;
       const nextLessionIndex: number = currentIndexLesson + 1;
-      const nextWord: any = lessons[currentIndexLesson].words[nextWordIndex];
-      const lession = lessons[nextLessionIndex];
-      const currentWord = lessons[currentIndexLesson].words[wordIndex];
+      const nextWord: Word = lessons[currentIndexLesson].words[nextWordIndex];
+      const nextLession: Lesson = lessons[nextLessionIndex];
 
       if (nextWord) {
-        nextWord.canTake = true;
-        currentWord.isCompleted = true;
+        handleNextWord(nextWord, nextWordIndex, currentIndexLesson);
+      } else if (nextLession) {
+        const nextWord: any = course.lessons[nextLessionIndex].words[0];
 
-        onWord({
-          word: nextWord,
-          wordIndex: nextWordIndex,
-          indexLesson: currentIndexLesson
-        });
-
-        setCourse((currentState: any) => ({
-          ...currentState,
-          currentLessonIndex: currentIndexLesson,
-          currentWordIndex: nextWordIndex,
-        }));
-
-      } else if (lession) {
-        const lessionWord = lessons[nextLessionIndex].words[0];
-
-        lessionWord.canTake = true;
-
-        onWord({
-          word: lessionWord,
-          wordIndex: 0,
-          indexLesson: nextLessionIndex
-        });
-
-        setCourse((currentState: any) => ({
-          ...currentState,
-          currentLessonIndex: nextLessionIndex,
-          currentWordIndex: 0,
-        }));
+        handleNextWord(nextWord, 0, nextLessionIndex);
       } else {
-        setCanShowModal(true);
+        handleNextWord(word, 0, currentIndexLesson, true);
       }
     }
   }
 
+  const handleNextWord = (
+    nextWord: any,
+    nextWordIndex: number,
+    nextLessonIndex: number,
+    isCourseComplete?: boolean,
+  ): void => {
+    setCourse((currentState: any) => {
+      const newState = currentState;
+      newState.index = { lesson: nextLessonIndex, word: nextWordIndex };
+
+      if (!newState.unlockedWords[nextWord._id]) {
+        newState.unlockedWords[nextWord._id] = true;
+        newState.completedWords[nextWord._id] = true;
+        newState.completedWords[word._id] = true;
+      }
+
+      if (isCourseComplete) {
+        newState.isCompleted = true;
+        setCanShowModal(true);
+      } else {
+        onWord({ word: nextWord, indexLesson: nextLessonIndex });
+      }
+
+      return newState;
+    });
+  }
+
   const update = (index: number): void => {
     if (!isPlaySpeech) {
-      setWord((currentState: any) => ({
-        ...currentState,
-        currentSentencesIndex: index
-      }));
-
       setSentenceIndex(index);
       setSentence(word?.sentences[index]);
       cleanFeedback();
@@ -129,9 +123,9 @@ const Course: React.FC = (): JSX.Element => {
       canShow: true
     });
 
-    if (isCorrect && !word?.sentences[sentenceIndex].isCompleted) {
+    if (isCorrect && !word?.sentences[sentenceIndex]?.isCompleted) {
       setWord((currentState: any) => {
-        const newState = { ...currentState };
+        const newState = currentState;
 
         newState.sentences[sentenceIndex].isCompleted = true;
 
@@ -157,6 +151,7 @@ const Course: React.FC = (): JSX.Element => {
 
   const getCompletedSentencesCount = (): number => {
     if (!word || !word.sentences) return 0;
+    else if (!word || word.isCompleted) return word.sentences.length;
 
     return word.sentences.reduce((currentState: number, nextState: any): number =>
       nextState.isCompleted ? currentState + 1 : currentState
@@ -166,9 +161,9 @@ const Course: React.FC = (): JSX.Element => {
   return (
     <section className={style.course}>
       <Aside
-        lessons={lessons}
+        course={globalState.course}
         onClick={onWord}
-        title={courses?.length ? courses[0].title : ''}
+        title={globalState.course ? globalState.course.title : ''}
       />
       <div className={style.course__container}>
         <div className={style.course__content}>
@@ -257,7 +252,7 @@ const Course: React.FC = (): JSX.Element => {
         text="Has completado el curso."
         title="¡Felicidades!"
       >
-        <Link to="/">volver a los cursos</Link>
+        <Link to="/" className={style.course__button}>volver a los cursos</Link>
       </Modal>
     </section>
   );

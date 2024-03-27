@@ -2,6 +2,7 @@ type Validation = {
   message?: string;
   regExp?: RegExp;
   emptyErrorMessage?: string;
+  isOpcional?: boolean;
 };
 
 type Field = {
