@@ -15,21 +15,21 @@ interface OnWord {
 }
 
 const Course: React.FC = (): JSX.Element => {
-  const { id = 0 } = useParams<string>();
+  // const { id = 0 } = useParams<string>();
   const [globalState] = useContext<[State, Payload]>(context);
   const [feedback, setFeedback] = useState({ canShow: false, message: '' });
   const [isPlaySpeech, setPlaySpeech] = useState<boolean>(false);
   const [lessionTitle, setLessionTitle] = useState<string>('');
   const [sentenceIndex, setSentenceIndex] = useState<number>(0);
-  const [course, setCourse] = useState<any>();
+  const [course, setCourse] = useState<Course>();
   const [sentence, setSentence] = useState<Sentence>();
-  const [word, setWord] = useState<any>();
+  const [word, setWord] = useState<Word>();
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [canShowModal, setCanShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     if (globalState.course) {
-      const course = globalState.course;
+      const course: Course = Object.assign({}, globalState.course);
       const currentLession: Lesson = course.lessons[course.index.lesson];
       const word: Word = currentLession.words[course.index.word];
 
@@ -44,7 +44,7 @@ const Course: React.FC = (): JSX.Element => {
   const onWord = ({ word, indexLesson }: OnWord): void => {
     const index: number = 0;
 
-    if (course.unlockedWords[word._id]) {
+    if (course?.unlockedWords[word._id]) {
       setWord(word);
       setSentence(word.sentences[index]);
       setSentenceIndex(index);
@@ -62,9 +62,8 @@ const Course: React.FC = (): JSX.Element => {
 
     if (sentenceIndex < len && sentence?.isCompleted) {
       update(sentenceIndex + 1);
-    } else if (sentenceIndex === len) {
-      const currentIndexLesson: number = course.index.lesson;
-      const currentIndexWord: number = course.index.word; 
+    } else if (sentenceIndex === len && course) {
+      const { lesson: currentIndexLesson, word: currentIndexWord } = course.index;
       const nextWordIndex: number = currentIndexWord + 1;
       const nextLessionIndex: number = currentIndexLesson + 1;
       const nextWord: Word = lessons[currentIndexLesson].words[nextWordIndex];
@@ -73,7 +72,7 @@ const Course: React.FC = (): JSX.Element => {
       if (nextWord) {
         handleNextWord(nextWord, nextWordIndex, currentIndexLesson);
       } else if (nextLession) {
-        const nextWord: any = course.lessons[nextLessionIndex].words[0];
+        const nextWord: Word = course.lessons[nextLessionIndex].words[0];
 
         handleNextWord(nextWord, 0, nextLessionIndex);
       } else {
@@ -92,13 +91,13 @@ const Course: React.FC = (): JSX.Element => {
       const newState = currentState;
       newState.index = { lesson: nextLessonIndex, word: nextWordIndex };
 
-      if (!newState.unlockedWords[nextWord._id]) {
+      if (!newState.unlockedWords[nextWord._id] && word) {
         newState.unlockedWords[nextWord._id] = true;
-        newState.completedWords[nextWord._id] = true;
         newState.completedWords[word._id] = true;
       }
 
       if (isCourseComplete) {
+        newState.completedWords[nextWord._id] = true;
         newState.isCompleted = true;
         setCanShowModal(true);
       } else {
@@ -151,7 +150,7 @@ const Course: React.FC = (): JSX.Element => {
 
   const getCompletedSentencesCount = (): number => {
     if (!word || !word.sentences) return 0;
-    else if (!word || word.isCompleted) return word.sentences.length;
+    else if (course?.completedWords[word._id]) return word.sentences.length;
 
     return word.sentences.reduce((currentState: number, nextState: any): number =>
       nextState.isCompleted ? currentState + 1 : currentState
@@ -163,10 +162,15 @@ const Course: React.FC = (): JSX.Element => {
       <Aside
         course={globalState.course}
         onClick={onWord}
-        title={globalState.course ? globalState.course.title : ''}
+        title={course ? course.title : ''}
       />
       <div className={style.course__container}>
         <div className={style.course__content}>
+          <div className={style.course__vocabularies}>
+            <Link to="/vocabularies">
+              Vocabularios
+            </Link>
+          </div>
           <div>
             <div className={style.course__word}>
               <span className={style.course__wordLesson}>
@@ -252,7 +256,12 @@ const Course: React.FC = (): JSX.Element => {
         text="Has completado el curso."
         title="¡Felicidades!"
       >
-        <Link to="/" className={style.course__button}>volver a los cursos</Link>
+        <Link
+          to="/"
+          className={style.course__modal_button}
+        >
+          Volver a los cursos
+        </Link>
       </Modal>
     </section>
   );

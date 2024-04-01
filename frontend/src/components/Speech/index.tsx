@@ -55,7 +55,7 @@ const Speech: React.FC<Props> = ({
         if (event.error === 'not-allowed') {
           setOutput('Active el microfono.');
         } else {
-          console.log(`Error: ${event.error}`);
+          console.log('Su navegador no soporta esta funcionalidad.');
         }
       }
 

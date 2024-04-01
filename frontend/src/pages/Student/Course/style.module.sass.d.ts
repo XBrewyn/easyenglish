@@ -5,7 +5,6 @@ interface CssExports {
   'course__arrowLeft': string;
   'course__arrowRight': string;
   'course__bar': string;
-  'course__button': string;
   'course__buttonPlay': string;
   'course__buttons': string;
   'course__container': string;
@@ -14,6 +13,7 @@ interface CssExports {
   'course__image': string;
   'course__link': string;
   'course__message': string;
+  'course__modal_button': string;
   'course__playText': string;
   'course__progress': string;
   'course__pronunciation': string;
@@ -22,6 +22,7 @@ interface CssExports {
   'course__slideshowWord': string;
   'course__titleEnglish': string;
   'course__titleSpanish': string;
+  'course__vocabularies': string;
   'course__word': string;
   'course__wordEnglish': string;
   'course__wordLesson': string;

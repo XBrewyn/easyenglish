@@ -10,13 +10,13 @@ const Courses: React.FC = () => {
   const [progress, setProgress] = useState<number>(0);
   const [{ course }] = useContext<[State, Payload]>(context);
   const {
-    _id,
-    picture,
-    title,
-    description,
-    completedWords,
-    lessons,
-  } = course;
+    _id = '',
+    picture = '',
+    title = '',
+    description = '',
+    completedWords = '',
+    lessons = [],
+  } = course || {};
 
   useEffect(() => {
     const result: number = lessons.reduce((currentValue: any, nextValue: any) =>

@@ -55,7 +55,9 @@ const Aside: React.FC<Props> = ({ course, onClick, title }): JSX.Element => {
             key={indexLesson}
             onClick={toggleLessonWords}
           >
-            <span className={style.aside__lession_title}>{lesson?.title}</span>
+            <span className={style.aside__lession_title}>
+              {lesson?.title}
+            </span>
             <ul className={style.aside__words}>
               {lesson?.words.map((word: any, wordIndex: number) =>
                 <li

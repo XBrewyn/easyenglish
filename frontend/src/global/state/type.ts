@@ -7,53 +7,49 @@ type User = {
   lastName: string;
   name: string;
   phoneNumber: string;
-  photo: string | null;
+  photo: string;
   status: boolean | null;
-}
+};
 
 type Course = {
-  id: number;
+  _id: string;
   picture: string;
   title: string;
   description: string;
   dateEnd: null | Date;
   dateStart: null | Date;
   isCompleted: boolean;
-  progress: number;
-  currentLessonIndex: number;
-  currentWordIndex: number;
-  canTake: boolean;
-}
+  index: { lesson: number; word: number; };
+  unlockedWords: { [key: string]: boolean };
+  completedWords: { [key: string]: boolean };
+  lessons: Lesson[];
+};
 
 type Lesson = {
   title: string;
   words: Word[];
-}
-
-type Quiz = {
-  isCompeted: boolean;
-  completedAt: Date | null;
-}
+};
 
 type Word = {
+  _id: string;
   englishWord: string;
   spanishTranslation: string;
   audioUrl: string;
   sentences: Sentence[];
-}
+};
 
 type Sentence = {
   spanishTranslation: string;
   englishWord: string;
   imageUrl: string;
   audioUrl: string;
-  isCompleted: boolean;
-}
+  isCompleted?: boolean;
+};
 
 type State = {
-  user: any; //User | null;
-  course: any //Course[] | null;
-}
+  user: User | null;
+  course: Course | null;
+};
 
 type Payload = User | Course[] | null;
 type Action = typeof SET_COURSES | typeof SET_USER;
@@ -61,13 +57,12 @@ type Action = typeof SET_COURSES | typeof SET_USER;
 type Option = {
   payload: Payload;
   type: Action;
-}
+};
 
 export type {
   State,
   Sentence,
   Word,
-  Quiz,
   Lesson,
   Course,
   User,
