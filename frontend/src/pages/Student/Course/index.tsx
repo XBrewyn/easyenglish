@@ -8,11 +8,8 @@ import SVGArrowLeft from '../../../public/svg/arrowLeft.svg';
 import SVGArrowRight from '../../../public/svg/arrowRight.svg'
 import style from './style.module.sass';
 import Modal from '../../../components/Modal';
-
-interface OnWord {
-  word: any;
-  indexLesson: number;
-}
+import Confetti from '../../../components/Confetti';
+import { OnWord } from './types';
 
 const Course: React.FC = (): JSX.Element => {
   // const { id = 0 } = useParams<string>();
@@ -29,7 +26,8 @@ const Course: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     if (globalState.course) {
-      const course: Course = Object.assign({}, globalState.course);
+      // We should fix this line, cause we shouldn't store the pointer.
+      const course: Course = globalState.course;
       const currentLession: Lesson = course.lessons[course.index.lesson];
       const word: Word = currentLession.words[course.index.word];
 
@@ -166,11 +164,6 @@ const Course: React.FC = (): JSX.Element => {
       />
       <div className={style.course__container}>
         <div className={style.course__content}>
-          <div className={style.course__vocabularies}>
-            <Link to="/vocabularies">
-              Vocabularios
-            </Link>
-          </div>
           <div>
             <div className={style.course__word}>
               <span className={style.course__wordLesson}>
@@ -192,6 +185,11 @@ const Course: React.FC = (): JSX.Element => {
               </div>
               <span>{getWordProgress()} completado</span>
               <span>{getCompletedSentencesCount()} de {word?.sentences.length}</span>
+            </div>
+            <div className={style.course__vocabularies}>
+              <Link to="/libraries">
+                Librería
+              </Link>
             </div>
           </div>
           <div className={style.course__slideshow}>
@@ -218,6 +216,13 @@ const Course: React.FC = (): JSX.Element => {
                   alt="Sentence"
                   className={style.course__image}
                 />
+                {feedback.canShow && (
+                  <span
+                    style={{ background: (feedback.message === '¡Correcto!') ? '#4caf50' : '#f44336' }}
+                    className={style.course__message}>
+                    {feedback.message}
+                  </span>
+                )}
                 {sentence?.isCompleted && (
                   <img
                     alt="Next arrow"
@@ -237,18 +242,6 @@ const Course: React.FC = (): JSX.Element => {
               </div>
             </div>
           </div>
-          <div>
-            <span className={style.course__result}>Resultados: </span>
-            <div className={style.course__feedback}>
-              {feedback.canShow && (
-                <span
-                  style={{ background: (feedback.message === '¡Correcto!') ? '#4caf50' : '#f44336' }}
-                  className={style.course__message}>
-                  {feedback.message}
-                </span>
-              )}
-            </div>
-          </div>
         </div>
       </div>
       <Modal
@@ -258,10 +251,11 @@ const Course: React.FC = (): JSX.Element => {
       >
         <Link
           to="/"
-          className={style.course__modal_button}
+          className={style.course__modalButton}
         >
           Volver a los cursos
         </Link>
+        <Confetti />
       </Modal>
     </section>
   );

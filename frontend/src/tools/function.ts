@@ -1,7 +1,7 @@
 import { Request, RequestOptions, Send } from './type';
 
 const send = ({ token = '', api, data }: Request): Send => {
-  const url: string = `https://easyenglish-users.fly.dev/api/v1/${api}/`;
+  const url: string = `https://pbdmqnx9-8080.use2.devtunnels.ms/${api}/`;
   const settings: RequestOptions = {
     headers: {
       'Content-Type': 'application/json',
@@ -56,11 +56,7 @@ const send = ({ token = '', api, data }: Request): Send => {
 const call = (condiction: { [key: string]: () => void }, key: string, defaultValue = null): any =>
   typeof condiction[key] === 'function' ? condiction[key]() : defaultValue;
 
-const toUpperCaseFirstLetter = (value: string): string =>
-  value.charAt(0).toUpperCase() + value.slice(1);
-
 export {
   send,
   call,
-  toUpperCaseFirstLetter
 }

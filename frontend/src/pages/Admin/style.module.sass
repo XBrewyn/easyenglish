@@ -1,0 +1,39 @@
+.admin
+  color: black
+
+  &__header
+    padding: 20px
+
+.table
+  border-collapse: collapse
+  font-family: arial, sans-serif
+  font-size: 30px
+  width: 100%
+
+  &__theadTh
+    padding: 28px 0px
+    text-align: center
+
+  &__tbodyTr
+    &:nth-child(even)
+      background-color: #f7f7f7
+
+  &__tbodyTd
+    padding: 20px
+    text-align: center
+
+  &__actionAdd,
+  &__actionEdit
+    border-radius: 5px
+    border: none
+    color: white
+    cursor: pointer
+    font-size: 20px
+    margin-left: 10px
+    padding: 5px
+
+  &__actionAdd
+    background-color: #4caf50
+
+  &__actionEdit
+    background-color: #009688

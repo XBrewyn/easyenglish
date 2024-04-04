@@ -3,7 +3,9 @@
 interface CssExports {
   'fadeInOut': string;
   'modal': string;
+  'modal__close': string;
   'modal__container': string;
+  'modal__header': string;
   'modal__paragraph': string;
   'modal__title': string;
 }

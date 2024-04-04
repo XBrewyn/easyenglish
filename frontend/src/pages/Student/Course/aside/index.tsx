@@ -65,21 +65,23 @@ const Aside: React.FC<Props> = ({ course, onClick, title }): JSX.Element => {
                   key={wordIndex}
                   onClick={() => onClick({ word, wordIndex, indexLesson })}
                 >
-                  {course.unlockedWords[word._id] ? (
-                    <img
-                      alt="Padlock unlocked"
-                      className={style.aside__padlock}
-                      src={SVGPadlockUnlocked}
-                    />
-                  ) : (
-                    <img
-                      alt="Padlock locked"
-                      className={style.aside__padlock}
-                      src={SVGPadlockLocked}
-                    />
-                  )
-                  }
-                  <span>{word.englishWord}</span>
+                  <div  className={style.aside__element}>
+                    {course.unlockedWords[word._id] ? (
+                      <img
+                        alt="Padlock unlocked"
+                        className={style.aside__padlock}
+                        src={SVGPadlockUnlocked}
+                      />
+                    ) : (
+                      <img
+                        alt="Padlock locked"
+                        className={style.aside__padlock}
+                        src={SVGPadlockLocked}
+                      />
+                    )
+                    }
+                    <span>{word.englishWord}</span>
+                  </div>
                 </li>
               )}
             </ul>

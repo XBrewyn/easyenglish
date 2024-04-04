@@ -1,47 +1,41 @@
-from flask import Flask, request, jsonify
-import os
+from flask import Flask, request
 import speech_recognition as sr
+from pydub import AudioSegment
+import io
 
 app = Flask(__name__)
 
-# Function to transcribe audio file
-def transcribe_audio(audio_file):
-  recognizer = sr.Recognizer()
+@app.route('/recognize', methods=['POST'])
+def recognize_speech():
+    if 'audio' not in request.files:
+        return 'No audio file provided', 400
 
-  with sr.AudioFile(audio_file) as source:
-    audio_data = recognizer.record(source)
-  try:
-    text = recognizer.recognize_google(audio_data)
-    return text
-  except sr.UnknownValueError:
-    return "Speech recognition could not understand the audio."
-  except sr.RequestError as e:
-    return f"Could not request results from Google Speech Recognition service; {e}"
+    audio_file = request.files['audio']
+    audio_bytes = audio_file.read()
 
-@app.route('/audio', methods=['POST'])
-def transcribe_endpoint():
+    # Convert audio bytes to AudioSegment
+    audio_segment = AudioSegment.from_file(io.BytesIO(audio_bytes))
 
-  if 'audio' not in request.files:
-    return jsonify({'error': 'No audio file provided'}), 400
+    # Convert to WAV format if not already in WAV
+    if audio_segment.channels != 1 or audio_segment.frame_rate != 16000:
+        audio_segment = audio_segment.set_frame_rate(16000).set_channels(1)
 
-  audio_file = request.files['audio']
+    # Export AudioSegment to WAV format in memory
+    wav_buffer = io.BytesIO()
+    audio_segment.export(wav_buffer, format="wav")
 
-  if audio_file.filename == '':
-    return jsonify({'error': 'No selected file'}), 400
+    recognizer = sr.Recognizer()
 
-  # Save the uploaded file
-  file_path = os.path.join('uploads', audio_file.filename)
-  audio_file.save(file_path)
+    with sr.AudioFile(wav_buffer) as source:
+        audio_data = recognizer.record(source)
 
-  # Transcribe the audio file
-  transcription = transcribe_audio(file_path)
-
-  # Remove the uploaded file
-  os.remove(file_path)
-  print(transcription)
-  return jsonify({ 'transcription': transcription })
+    try:
+        text = recognizer.recognize_google(audio_data)
+        return text
+    except sr.UnknownValueError:
+        return 'Speech recognition could not understand audio', 400
+    except sr.RequestError as e:
+        return f"Could not request results from Google Speech Recognition service; {e}", 500
 
 if __name__ == '__main__':
-  if not os.path.exists('uploads'):
-    os.makedirs('uploads')
-  app.run(debug=True)
+    app.run(debug=True)

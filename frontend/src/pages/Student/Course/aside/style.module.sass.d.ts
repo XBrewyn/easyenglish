@@ -3,6 +3,7 @@
 interface CssExports {
   'aside': string;
   'aside__button': string;
+  'aside__element': string;
   'aside__lession': string;
   'aside__lession_title': string;
   'aside__lessions': string;

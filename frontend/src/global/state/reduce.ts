@@ -1,6 +1,8 @@
 import {
   SET_USER,
   SET_COURSES,
+  CLEAR_LOAD,
+  SET_LOAD,
 } from './actionTypes';
 import { Option, State } from './type';
 
@@ -10,10 +12,18 @@ const reducer = (state: State, { payload, type }: Option): State => ({
 
     return { ...state, user: { ...payload, photo } };
   },
-  
+
   [SET_COURSES]: (payload: any): State => {
     return { ...state, course: { ...payload } };
-  }
+  },
+
+  [CLEAR_LOAD]: (payload: any): State => {
+    return { ...state, loading: { canShow: false, text: '' } };
+  },
+
+  [SET_LOAD]: (payload: any): State => {
+    return { ...state, loading: { ...payload } };
+  },
 }[type](payload));
 
 export default reducer;

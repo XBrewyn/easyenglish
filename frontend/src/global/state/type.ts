@@ -1,4 +1,4 @@
-import { SET_COURSES, SET_USER } from './actionTypes';
+import { CLEAR_LOAD, SET_COURSES, SET_USER } from './actionTypes';
 
 type User = {
   _id: string;
@@ -16,10 +16,12 @@ type Course = {
   picture: string;
   title: string;
   description: string;
-  dateEnd: null | Date;
-  dateStart: null | Date;
   isCompleted: boolean;
-  index: { lesson: number; word: number; };
+  index: {
+    lesson: number;
+    word: number;
+    sentence: number;
+  };
   unlockedWords: { [key: string]: boolean };
   completedWords: { [key: string]: boolean };
   lessons: Lesson[];
@@ -31,7 +33,7 @@ type Lesson = {
 };
 
 type Word = {
-  _id: string;
+  _id: number;
   englishWord: string;
   spanishTranslation: string;
   audioUrl: string;
@@ -46,16 +48,22 @@ type Sentence = {
   isCompleted?: boolean;
 };
 
+type Loading = {
+  canShow: boolean;
+  text: string;
+};
+
 type State = {
   user: User | null;
   course: Course | null;
+  loading: Loading;
 };
 
 type Payload = User | Course[] | null;
-type Action = typeof SET_COURSES | typeof SET_USER;
+type Action = typeof SET_COURSES | typeof SET_USER | typeof CLEAR_LOAD;
 
 type Option = {
-  payload: Payload;
+  payload?: Payload;
   type: Action;
 };
 

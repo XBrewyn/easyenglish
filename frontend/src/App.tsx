@@ -5,6 +5,7 @@ import initialState from './global/state/state';
 import reducer from './global/state/reduce';
 import { SET_COURSES, SET_USER } from './global/state/actionTypes';
 import RouterStudent from './routers/Student';
+import Modal from './components/Modal';
 
 const App: React.FC = (): JSX.Element => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -15,9 +16,18 @@ const App: React.FC = (): JSX.Element => {
   }, []);
 
   return (
-    <context.Provider value={[state, dispatch]}>
-      {true ? <RouterStudent /> : <RouterHomePage />}
-    </context.Provider>
+    <>
+      <context.Provider value={[state, dispatch]}>
+        {state.user ? <RouterStudent /> : <RouterHomePage />}
+      </context.Provider>
+      <Modal
+        canShow={state.loading.canShow}
+      >
+        <div>
+          <span>{state.loading.text}</span>
+        </div>
+      </Modal>
+    </>
   );
 }
 

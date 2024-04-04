@@ -47,7 +47,7 @@ const Navigator: React.FC<Props> = ({ tabs = defaultTabs }): JSX.Element => {
           </Link>
         </div>
         <ul className={style.navigator__links}>
-          {user && (
+          {/* {user && (
             <li className={style.navigator__user}>
               <img
                 className={style.navigator__picture}
@@ -60,7 +60,7 @@ const Navigator: React.FC<Props> = ({ tabs = defaultTabs }): JSX.Element => {
                 <Links />
               </ul>
             </li>
-          )}
+          )} */}
           <Links />
         </ul>
         <div

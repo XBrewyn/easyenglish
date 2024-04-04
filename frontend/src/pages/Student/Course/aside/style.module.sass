@@ -3,8 +3,9 @@
 .aside
   background: #ffffff
   border: solid 1px #f1f1f1
+  border-top: none
   color: #020202
-  height: 100vh
+  min-height: 100vh
   position: absolute
   width: 0
   z-index: 1
@@ -13,16 +14,20 @@
     margin-left: 20px
     overflow: hidden
 
+  &__element
+    margin-left: 20px
+
   &__button
     align-items: center
     border-bottom-right-radius: 5px
-    border-left: none
     border: solid 1px #f1f1f1
+    border-left: none
+    border-top: none
     cursor: pointer
     display: flex
     height: 53px
     justify-content: center
-    margin: 9px -41px
+    margin: 0 -40px
     position: absolute
     width: 40px
 

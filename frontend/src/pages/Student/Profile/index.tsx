@@ -11,7 +11,7 @@ const Profile: React.FC = (): JSX.Element => {
       <div className={style.profile}>
         <div className={style.profile__container}>
           <div>
-            <h1>Profile</h1>
+            <h1>Perfil</h1>
           </div>
           <div>
             <img src={user?.photo} alt="User Profile Picture" className={style.profile__picture} />
@@ -22,7 +22,7 @@ const Profile: React.FC = (): JSX.Element => {
                 <strong>Nombre:</strong> {user?.name}
               </li>
               <li className={style.profile__last_name}>
-                <strong>Last Name:</strong> {user?.lastName}
+                <strong>Apellido:</strong> {user?.lastName}
               </li>
               <li>
                 <strong>Email:</strong> {user?.email}

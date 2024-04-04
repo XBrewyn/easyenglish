@@ -13,7 +13,7 @@ interface CssExports {
   'course__image': string;
   'course__link': string;
   'course__message': string;
-  'course__modal_button': string;
+  'course__modalButton': string;
   'course__playText': string;
   'course__progress': string;
   'course__pronunciation': string;

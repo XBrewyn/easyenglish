@@ -17,6 +17,7 @@
     font-size: 15px
     justify-content: space-around
     list-style: none
+    position: relative
     width: 400px
 
     &:has(.navigator__user)
@@ -48,6 +49,7 @@
     width: 100%
 
   &__picture
+    border-radius: 50%
     height: 50px
     position: relative
     right: 10px
@@ -77,12 +79,12 @@
     background-color: #fff
     border-radius: 5px
     border: solid 1px #e5e5e5
+    bottom: -105px
     display: none
     list-style: none
-    margin-left: 44px
-    margin-top: 151px
     padding: 0 20px 10px 20px
     position: absolute
+    right: 78px
 
   @include mobile
     justify-content: space-between

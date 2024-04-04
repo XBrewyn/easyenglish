@@ -1,20 +1,21 @@
 import React from 'react';
 import style from './style.module.sass';
-import Confetti from '../Confetti/index';
 
 interface Prop {
   canShow: boolean;
-  title: string;
-  text: string;
-  children?: JSX.Element | null | JSX.Element[]
+  title?: string;
+  text?: string;
+  children?: JSX.Element | null | JSX.Element[];
+  onClose?: () => void;
 };
 
-const Modal: React.FC<Prop> = ({ canShow, title, text, children }) => (
+const Modal: React.FC<Prop> = ({ canShow, title, text, children, onClose }) => (
   <>
     {canShow && (
       <div className={style.modal}>
         <div className={style.modal__container}>
-          <header>
+          <header className={style.modal__header}>
+            {onClose && <span onClick={onClose} className={style.modal__close}>X</span>}
             <h2 className={style.modal__title}>
               {title}
             </h2>
@@ -24,7 +25,6 @@ const Modal: React.FC<Prop> = ({ canShow, title, text, children }) => (
           </p>
           {children}
         </div>
-        <Confetti />
       </div>
     )}
   </>

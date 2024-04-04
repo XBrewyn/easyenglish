@@ -2,7 +2,7 @@
 
 .modal
   align-items: center
-  animation: fadeInOut 3s forwards
+  animation: fadeInOut 0.5s forwards
   background: #ffffff
   color: black
   display: flex
@@ -23,6 +23,16 @@
 
   &__paragraph
     font-size: 1rem
+
+  &__header
+    position: relative
+
+  &__close
+    cursor: pointer
+    font-family: cursive
+    position: absolute
+    right: 0
+    top: -50px
 
   @keyframes fadeInOut
     0%
